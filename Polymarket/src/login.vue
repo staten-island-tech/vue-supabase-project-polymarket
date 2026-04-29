@@ -39,6 +39,10 @@ async function signIn() {
     <input v-model="email" placeholder="Email" type="email" autocomplete="email" />
     <input v-model="password" placeholder="Password" type="password" autocomplete="current-password" />
 
+    <button :disabled="loading" @click="signIn">
+      {{ loading ? "Signing in..." : "Sign in" }}
+    </button>
+
     <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
   </div>
 </template>
