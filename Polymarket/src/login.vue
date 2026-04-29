@@ -21,7 +21,7 @@ async function signIn() {
       password: password.value,
     });
 
-    if (error) throw error;
+
 
     router.push({ name: "dashboard" }).catch(() => {});
   } catch (e) {
