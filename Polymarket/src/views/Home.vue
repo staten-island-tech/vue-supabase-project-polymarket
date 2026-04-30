@@ -53,7 +53,7 @@
   --lightish-2m: #9faab9;
   --yestext-2m: #26a350;
   --yes-2m: #92c4a7;
-  --notext-2m: #a0171c;
+  --notext-2m: #962c30;
   --no-2m: #cfadad;
 }
 .samreich{
