@@ -42,7 +42,7 @@ async function signIn() {
     <button :disabled="loading" @click="signIn">
       {{ loading ? "Signing in..." : "Sign in" }}
     </button>
-<button>log in</button>
+
     <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
   </div>
 </template>
