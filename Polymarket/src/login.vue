@@ -19,19 +19,18 @@ async function signIn() {
     const { error } = await supabase.auth.signInWithPassword({
       email: email.value,
       password: password.value,
-    });
-
-
-
+    })
     router.push({ name: "dashboard" }).catch(() => {});
   } catch (e) {
     errorMessage.value = e?.message ?? "Login failed.";
   } finally {
     loading.value = false;
+
+    loading.value = true; 
   }
 }
 </script>
-
+<
 <template>
   <div class="auth">
     <h2>Log in</h2>
