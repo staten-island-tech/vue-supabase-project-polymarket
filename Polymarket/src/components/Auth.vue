@@ -33,8 +33,11 @@ const handleLogin = async () => {
             <div v-if="errorMessage" class="error-message" style="color: red; margin-bottom: 1rem;">
                 {{ errorMessage }}
             </div>
-            <div>
+            <div class="inputs">
                 <input class="inputField" type="email" placeholder="Your email" v-model="email" />
+                <input class="inputField" type="text" placeholder="Username" v-model="username" /> -->
+                <!-- <input class="inputField" type="text" placeholder="Password" v-model="password" /> -->
+                <!-- <input class="inputField" type="text" placeholder="Confirm Password" v-model="confirmPassword" /> --> -->
             </div>
             <div>
                 <input type="submit" class="button block" :value="loading ? 'Loading' : 'Send magic link'"
@@ -43,3 +46,17 @@ const handleLogin = async () => {
         </div>
     </form>
 </template>
+<style>
+    .inputs {
+        margin-bottom: 1rem;
+        display: flex;
+        flex-direction: column;
+        width: 35%;
+    }
+    .inputField {
+        padding: 0.5rem;
+        margin-bottom: 0.5rem;
+        border: 1px solid #ccc;
+        border-radius: 7.5  px;
+    }
+</style>
