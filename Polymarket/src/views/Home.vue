@@ -19,6 +19,7 @@
   --yes-lm: #345250;
   --notext-lm: #d5363b;
   --no-lm: #5a414c;
+  --brd-lm: 10px;
 
   --primary: var(--bg-lm);
   --secondary: var(--text-lm);
