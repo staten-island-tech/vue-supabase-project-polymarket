@@ -69,3 +69,5 @@ async function logout() {
     <p>{{ message }}</p>
   </div>
 </template>
+
+   
