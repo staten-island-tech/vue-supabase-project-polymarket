@@ -27,6 +27,13 @@ async function signIn() {
     loading.value = false;
 
     loading.value = true; 
+
+
+
+async function signIn() {
+  errorMessage.value = "";
+  loading.value = true;
+
   }
 }
 </script>
@@ -45,4 +52,3 @@ async function signIn() {
     <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
   </div>
 </template>
-3
