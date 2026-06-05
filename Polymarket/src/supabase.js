@@ -1,6 +1,21 @@
-import { createClient } from '@supabase/supabase-js'
+import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
-const supabaseKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY
+let supabaseClient = null;
 
-export const supabase = createClient(supabaseUrl, supabaseKey)
+export const getSupabase = () => {
+  if (supabaseClient) {
+    return supabaseClient;
+  }
+
+  const supabaseUrl = "https://qfvweombcnfptqridxzq.supabase.co/rest/v1/";
+  const supabaseKey = "sb_publishable_p7WqU1LGzI2X2ne0pVhpBw_Ey7gLCjd";
+
+  supabaseClient = createClient(supabaseUrl, supabaseKey);
+  return supabaseClient;
+};
+
+export const supabase = new Proxy({}, {
+  get: (target, prop) => {
+    return getSupabase()[prop];
+  }
+});
