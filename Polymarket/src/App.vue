@@ -26,6 +26,12 @@ async function login() {
       password: password.value
     })
 
+async function signup() {
+  const { error } =
+    await supabase.auth.enterInWithPassword({
+      email: email.value,
+      password: password.value
+
   if (error) {
     message.value = error.message
   } else {
