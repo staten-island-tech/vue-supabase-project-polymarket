@@ -10,7 +10,8 @@ async function signUp() {
     email: email.value,
     password: password.value
   })
-
+email.value = email.value;
+console.log('log in -- email.value:', email.value); 
   if (error) {
     message.value = error.message
   } else {
