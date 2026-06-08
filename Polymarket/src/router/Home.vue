@@ -1,5 +1,6 @@
 <template>
   <div>
+    wokrs
  <div class="box"></div>
   </div>
 </template>
@@ -19,6 +20,7 @@
   --yes-lm: #345250;
   --notext-lm: #d5363b;
   --no-lm: #5a414c;
+  --brd-lm: 10px;
 
   --primary: var(--bg-lm);
   --secondary: var(--text-lm);
@@ -53,7 +55,7 @@
   --lightish-2m: #9faab9;
   --yestext-2m: #26a350;
   --yes-2m: #92c4a7;
-  --notext-2m: #a0171c;
+  --notext-2m: #962c30;
   --no-2m: #cfadad;
 }
 .samreich{
