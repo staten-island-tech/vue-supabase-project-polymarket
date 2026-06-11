@@ -32,6 +32,15 @@ async function signIn() {
 }
 </script>
 
+
+
+const loading = ref(false);
+const errorMessage = ref("");
+
+async function signIn() {
+  errorMessage.value = "";
+  loading.value = true;
+
 <template>
   <div class="auth">
     <h2>Log in</h2>

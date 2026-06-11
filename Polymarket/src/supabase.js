@@ -23,7 +23,6 @@ export const getSupabase = () => {
   return supabaseClient;
 };
 
-// Export a direct reference for convenience
 export const supabase = new Proxy({}, {
   get: (target, prop) => {
     return getSupabase()[prop];
