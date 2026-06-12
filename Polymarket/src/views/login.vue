@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { supabaseClient } from "supabase.js";
+//import { supabaseClient } from "Polymarket\src\supabase.js";
 
 const router = useRouter();
 
