@@ -14,7 +14,6 @@ async function loadBets() {
     const { data, error } = await supabase.from('bets').select('*').order('created_at', { ascending: false })
     if (error) throw error
     bets.value = data || []
-    // load profile balance if user present
     if (user.value) {
       const { data: profile } = await supabase.from('profiles').select('balance').eq('id', user.value.id).single()
       balance.value = Number(profile?.balance || 0)
