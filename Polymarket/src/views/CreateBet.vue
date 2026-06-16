@@ -19,7 +19,6 @@ async function submitBet() {
     const owner = user.value
     if (!owner) throw new Error('Must be logged in to submit a bet')
 
-    // fetch current balance
     const { data: profile, error: pErr } = await supabase.from('profiles').select('balance').eq('id', owner.id).single()
     if (pErr) throw pErr
     const currentBalance = Number(profile?.balance || 0)
@@ -27,7 +26,6 @@ async function submitBet() {
     if (betAmount <= 0) throw new Error('Amount must be greater than 0')
     if (betAmount > currentBalance) throw new Error('Insufficient balance')
 
-    // insert bet
     const { data: inserted, error: insertErr } = await supabase.from('bets').insert([{
       title: title.value,
       description: description.value,
@@ -36,11 +34,9 @@ async function submitBet() {
     }]).select().single()
     if (insertErr) throw insertErr
 
-    // deduct balance (non-atomic: prefer a DB function for atomicity)
     const newBalance = currentBalance - betAmount
     const { error: updErr } = await supabase.from('profiles').update({ balance: newBalance }).eq('id', owner.id)
     if (updErr) {
-      // attempt to clean up inserted bet
       await supabase.from('bets').delete().eq('id', inserted.id)
       throw updErr
     }
