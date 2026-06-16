@@ -32,8 +32,6 @@ const triggerFileInput = () => {
 const handleFileChange = async (event) => {
   const file = event.target.files[0]
   if (file) {
-    // Here you would typically upload the file to Supabase storage
-    // For now, we'll just emit the file or a placeholder
     emit('update:path', URL.createObjectURL(file))
     emit('upload', file)
   }

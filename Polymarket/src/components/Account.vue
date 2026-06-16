@@ -29,7 +29,7 @@ async function getProfile() {
     console.log('Fetching profile for user:', userId)
     let { data, error, status } = await supabase
       .from('profiles')
-      .select(`username, website, avatar_url`)
+      .select(`website, avatar_url, email`)
       .eq('id', userId)
       .single()
 
@@ -39,7 +39,6 @@ async function getProfile() {
     }
 
     if (data) {
-      username.value = data.username || ''
       website.value = data.website || ''
       avatar_url.value = data.avatar_url || ''
     }
@@ -66,7 +65,6 @@ async function updateProfile() {
     
     const updates = {
       id: userId,
-      username: username.value,
       website: website.value,
       avatar_url: avatar_url.value,
       updated_at: new Date(),
@@ -117,10 +115,7 @@ async function signOut() {
       <label for="email">Email</label>
       <input id="email" type="text" :value="claims.email" disabled />
     </div>
-    <div>
-      <label for="username">Name</label>
-      <input id="username" type="text" v-model="username" />
-    </div>
+    
     <div>
       <label for="website">Website</label>
       <input id="website" type="url" v-model="website" />
