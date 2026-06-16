@@ -19,29 +19,23 @@ async function submitBet() {
     const owner = user.value
     if (!owner) throw new Error('Must be logged in to submit a bet')
 
-  const { data: profile, error: pErr } = await supabase.from('profiles').select('balance').eq('id', owner.id).single()
+    // fetch current balance
+    const { data: profile, error: pErr } = await supabase.from('profiles').select('balance').eq('id', owner.id).single()
     if (pErr) throw pErr
     const currentBalance = Number(profile?.balance || 0)
     const betAmount = Number(amount.value || 0)
     if (betAmount <= 0) throw new Error('Amount must be greater than 0')
     if (betAmount > currentBalance) throw new Error('Insufficient balance')
 
-  const { data: inserted, error: insertErr } = await supabase.from('bets').insert([{
-      title: title.value,
-      description: description.value,
-      creator_id: owner.id,
-      amount: betAmount
-    }]).select().single()
-    if (insertErr) throw insertErr
-
-    
-    const newBalance = currentBalance - betAmount
-    const { error: updErr } = await supabase.from('profiles').update({ balance: newBalance }).eq('id', owner.id)
-    if (updErr) {
-      
-      await supabase.from('bets').delete().eq('id', inserted.id)
-      throw updErr
-    }
+    // perform transaction: insert bet and deduct balance
+    const { error: txError } = await supabase.rpc('insert_bet_and_deduct', {
+      p_title: title.value,
+      p_description: description.value,
+      p_owner_id: owner.id,
+      p_owner_email: owner.email,
+      p_amount: betAmount
+    })
+    if (txError) throw txError
 
     router.push({ name: 'Dashboard' })
   } catch (e) {
