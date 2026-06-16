@@ -41,8 +41,9 @@ onMounted(loadBets)
 
     <ul v-else>
       <li v-for="b in bets" :key="b.id" style="margin-bottom:1rem;border:1px solid #eee;padding:1rem">
-        <div><strong>{{ b.title }}</strong> — by {{ b.owner_email || 'unknown' }}</div>
+        <div><strong>{{ b.title }}</strong> — by {{ b.creator_id || 'unknown' }}</div>
         <div>{{ b.description }}</div>
+        <div>Amount: {{ b.amount || 0 }}</div>
         <div>Status: {{ b.approved ? 'Approved' : 'Pending' }}</div>
       </li>
     </ul>
