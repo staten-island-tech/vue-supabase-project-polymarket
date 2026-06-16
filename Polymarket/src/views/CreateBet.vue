@@ -6,7 +6,7 @@ import { useAuth } from '@/composables/useAuth'
 
 const title = ref('')
 const description = ref('')
-const amount = ref(0)
+const amount = ref(100)
 const loading = ref(false)
 const errorMessage = ref('')
 const router = useRouter()
@@ -27,15 +27,23 @@ async function submitBet() {
     if (betAmount <= 0) throw new Error('Amount must be greater than 0')
     if (betAmount > currentBalance) throw new Error('Insufficient balance')
 
-    // perform transaction: insert bet and deduct balance
-    const { error: txError } = await supabase.rpc('insert_bet_and_deduct', {
-      p_title: title.value,
-      p_description: description.value,
-      p_owner_id: owner.id,
-      p_owner_email: owner.email,
-      p_amount: betAmount
-    })
-    if (txError) throw txError
+    // insert bet
+    const { data: inserted, error: insertErr } = await supabase.from('bets').insert([{
+      title: title.value,
+      description: description.value,
+      creator_id: owner.id,
+      amount: betAmount
+    }]).select().single()
+    if (insertErr) throw insertErr
+
+    // deduct balance (non-atomic: prefer a DB function for atomicity)
+    const newBalance = currentBalance - betAmount
+    const { error: updErr } = await supabase.from('profiles').update({ balance: newBalance }).eq('id', owner.id)
+    if (updErr) {
+      // attempt to clean up inserted bet
+      await supabase.from('bets').delete().eq('id', inserted.id)
+      throw updErr
+    }
 
     router.push({ name: 'Dashboard' })
   } catch (e) {

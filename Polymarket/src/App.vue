@@ -10,8 +10,7 @@
       <nav class="nav">
         <RouterLink to="/sign-up">Sign Up</RouterLink>
         <RouterLink to="/login">Login</RouterLink>
-        <RouterLink to="/dashboard">Dashboard</RouterLink>
-        <RouterLink to="/admin">Admin</RouterLink>
+  <RouterLink to="/dashboard">Dashboard</RouterLink>
       </nav>
     </header>
 

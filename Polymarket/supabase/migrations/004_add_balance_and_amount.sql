@@ -4,6 +4,5 @@ alter table if exists public.profiles
 alter table if exists public.bets
   add column if not exists amount numeric default 0;
 
--- Optional: ensure non-null default
-update public.profiles set balance = 0 where balance is null;
-update public.bets set amount = 0 where amount is null;
+update public.profiles set balance = 1000 where balance is null;
+update public.bets set amount = 100 where amount is null;
